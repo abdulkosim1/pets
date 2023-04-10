@@ -1,4 +1,4 @@
-
+#bla bla 
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
@@ -18,6 +18,7 @@ SECRET_KEY = 'django-insecure-!0f8leje5vu7-dyer9byjnct_pq^kpgao8_l1304sq9ky+gex*
 DEBUG = True
 
 ALLOWED_HOSTS = ['34.89.184.22']
+# ALLOWED_HOSTS = ['34.89.184.22']
 
 
 # Application definition
