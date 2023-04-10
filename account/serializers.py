@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-# from account.tasks import send_activation_code as celery_register
 from django.db.models import Avg
 from .send_email import send_reset_password_code, send_activation_code
-from .sms import send_sms
+from account.tasks import send_activation_code as celery_register
+
 
 User = get_user_model()  # CustomUser
 
@@ -33,7 +33,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-        send_activation_code(user.email, user.activation_code)
+        celery_register.delay(user.email, user.activation_code)
         return user
 
 
