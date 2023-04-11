@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Pets
 from .serializers import PetsSerializer
 from django.contrib.auth import get_user_model
+from .permissions import IsOwner
 
 User = get_user_model()
 
@@ -35,4 +36,9 @@ class PetsCreateAPIView(generics.CreateAPIView): # Добавление pets
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class PetsRetriveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView): # Удаление, изменение постов
+    queryset = Pets.objects.all()
+    serializer_class = PetsSerializer
+    permission_classes = [IsAuthenticated, IsOwner,]
+    lookup_field='id'
         
