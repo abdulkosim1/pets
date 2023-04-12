@@ -11,8 +11,8 @@ def send_activation_code(email, code):
 def send_email_about_shop(email):
     send_mail(
         'Pets Shop', # title
-        'Было создана заявка на создание организции. Пожалуйста проверьте заявку.',
-        f'http://34.89.184.22/admin/', # body
+
+        f'Была создана заявка на создание организции. Пожалуйста проверьте заявку. http://34.89.184.22/admin/', # body
         'kasimmashrapov@gamil.com', # from
         [email] # to
     )
