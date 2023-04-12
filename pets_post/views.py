@@ -10,7 +10,6 @@ from .permissions import IsOwner
 
 User = get_user_model()
 
-
 class CustomPagination(PageNumberPagination): # Кастомная пагинация
     page_size = 6
     page_size_query_param = 'page_size'

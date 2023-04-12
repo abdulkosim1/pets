@@ -1,4 +1,10 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
+from account.send_email import send_email_about_shop
+
+User = get_user_model()
 
 # Create your models here.
 
@@ -15,3 +21,12 @@ class Shop(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+@receiver(post_save, sender=Shop)
+def shop_create(sender, instance, created, **kwargs):
+    if created:
+        for user in User.objects.filter(is_staff=True):
+            send_email_about_shop(user.email)
+
+        
+        
