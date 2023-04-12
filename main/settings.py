@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # apps
     'account',
     'pets_post',
+    'shop',
 ]
 
 MIDDLEWARE = [
