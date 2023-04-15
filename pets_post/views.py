@@ -48,7 +48,7 @@ def get_pet(request, id):
     try:
         pet = Pets.objects.get(id=id)
     except Pets.DoesNotExist:
-        return Response('net takoy pesni')
+        return Response('Pet does not exist')
     serializer = PetsSerializer(pet, many=False)
     return Response(serializer.data)
         
