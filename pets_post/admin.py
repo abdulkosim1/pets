@@ -1,5 +1,4 @@
 from django.contrib import admin
-from rest_framework.permissions import BasePermission, SAFE_METHODS
 from .models import Category, Pets
 
 # Register your models here.
