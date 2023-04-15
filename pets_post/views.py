@@ -1,12 +1,14 @@
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework import generics
+from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Pets
 from .serializers import PetsSerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwner
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 User = get_user_model()
 
@@ -33,11 +35,22 @@ class PetsCreateAPIView(generics.CreateAPIView): # Добавление pets
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class PetsRetriveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView): # Удаление, изменение постов
+class PetsUpdateDestroyAPIView(mixins.UpdateModelMixin,
+                                    mixins.DestroyModelMixin,
+                                    viewsets.GenericViewSet): # Удаление, изменение постов
     queryset = Pets.objects.all()
     serializer_class = PetsSerializer
     permission_classes = [IsAuthenticated, IsOwner,]
     lookup_field='id'
+
+@api_view(['GET'])
+def get_pet(request, id):
+    try:
+        pet = Pets.objects.get(id=id)
+    except Pets.DoesNotExist:
+        return Response('net takoy pesni')
+    serializer = PetsSerializer(pet, many=False)
+    return Response(serializer.data)
         
 class GetFreePetsListAPIView(generics.ListAPIView): # Просмотр pets 
     serializer_class = PetsSerializer
