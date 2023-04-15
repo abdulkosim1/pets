@@ -19,6 +19,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('pets/', include('pets_post.urls')),
     path('shop/', include('shop.urls')),
+    path('feedback/', include('feedback.urls')),
     path('swagger/', schema_view.with_ui('swagger')),
 
 

@@ -36,7 +36,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         celery_register.delay(user.email, user.activation_code)
         return user
 
-
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
 
@@ -52,7 +51,6 @@ class ForgotPasswordSerializer(serializers.Serializer):
         user.save()
         send_reset_password_code(email=email, code=user.activation_code)
         
-
 class ForgotPasswordCompleteSerializer(serializers.Serializer):
     password = serializers.CharField(required=True, min_length=6)
     password_confirm = serializers.CharField(required=True, min_length=6)
@@ -79,10 +77,17 @@ class ForgotPasswordCompleteSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save(update_fields=['password', 'activation_code'])
 
-
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
         fields = '__all__'
 
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
