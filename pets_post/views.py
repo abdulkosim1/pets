@@ -3,8 +3,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Pets
-from .serializers import PetsSerializer
+from .models import Pets, Category
+from .serializers import PetsSerializer, CategorySerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwner
 from rest_framework.decorators import api_view
@@ -23,9 +23,18 @@ class PetsListAPIView(generics.ListAPIView): # Просмотр pets
     permission_classes = []
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filter_fields = ['owner', 'title',]
+    filter_fields = ['owner', 'title', 'category']
     search_fields = ['title', ]
     ordering_fileds = ['id','owner',]
+
+class CategoryListAPIView(generics.ListAPIView): # Просмотр category 
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = []
+    pagination_class = CustomPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_fields = ['title',]
+    search_fields = ['title', ]
 
 class PetsCreateAPIView(generics.CreateAPIView): # Добавление pets
     queryset = Pets.objects.all()
@@ -63,4 +72,13 @@ class GetFreePetsListAPIView(generics.ListAPIView): # Просмотр pets
     search_fields = ['title', ]
     ordering_fileds = ['id','owner',]
 
+@api_view(['GET'])
+def get_pet_category(request, pk):
+    try:
+        category = Category.objects.get(pk=pk)
+        pets_in_category = category.pets_categories.all()
+    except Category.DoesNotExist:
+        return Response('Category does not exist')
+    serializer = CategorySerializer(pets_in_category, many=True)
+    return Response(serializer.data)
 

@@ -11,6 +11,9 @@ urlpatterns = [
     path('create_pets/', PetsCreateAPIView.as_view()),
     path('change/<int:id>/', PetsUpdateDestroyAPIView.as_view({'put': 'update','patch': 'partial_update','delete': 'destroy'})),
     path('get_pet/<int:id>/', get_pet),
+    path('get_cat/<int:pk>/', get_pet_category),
+    path('get_categories/', CategoryListAPIView.as_view()),
+
 
 
 
