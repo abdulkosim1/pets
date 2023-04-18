@@ -29,3 +29,13 @@ class Rating(models.Model):
 
     def __str__(self) -> str:
         return f'{self.owner} --> {self.shops.title}'
+    
+
+class Review(models.Model):
+    name = models.CharField(max_length=30)
+    contact = models.CharField(max_length=30)
+    theme = models.CharField(max_length=30)
+    message = models.TextField()
+
+    def __str__(self) -> str:
+        return self.name

@@ -6,8 +6,6 @@ from account.send_email import send_email_about_shop
 
 User = get_user_model()
 
-# Create your models here.
-
 class Shop(models.Model):
     title = models.CharField(max_length=50)
     category = models.CharField(max_length=30)
@@ -27,6 +25,9 @@ def shop_create(sender, instance, created, **kwargs):
     if created:
         for user in User.objects.filter(is_staff=True):
             send_email_about_shop(user.email)
+
+
+
 
         
         

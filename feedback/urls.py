@@ -7,6 +7,7 @@ router.register('comment', CommentModelViewSet)
 
 urlpatterns = [  # adding , rating
     path('<int:pk>/rating/', AddRating.as_view()),
+    path('review/', ReviewListCreateAPIView.as_view()),
 
     path('', include(router.urls)),
 ]

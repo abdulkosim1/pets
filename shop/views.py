@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 # Create your views here.
 
-class ShopListCreateAPIView(generics.ListCreateAPIView): # Просмотр pets 
+class ShopListCreateAPIView(generics.ListCreateAPIView): # Просмотр shops 
     queryset = Shop.objects.filter(is_confirmed=True)
     serializer_class = ShopSerializer
     permission_classes = []

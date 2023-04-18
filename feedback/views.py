@@ -1,9 +1,9 @@
-from .models import Comment, Rating
+from .models import Comment, Rating, Review
 from rest_framework.response import Response
 from shop.models import Shop
 from rest_framework.viewsets import ModelViewSet
-from .serializers import CommentSerializer, RatingSerializer
-from rest_framework.generics import CreateAPIView
+from .serializers import CommentSerializer, RatingSerializer, ReviewSerializer
+from rest_framework.generics import CreateAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from shop.serializers import ShopSerializer
 
@@ -30,3 +30,7 @@ class AddRating(CreateAPIView): # Post запрос на добавление р
         rating_obj.rating = request.data['rating']
         rating_obj.save()
         return Response(serializer.data)
+
+class ReviewListCreateAPIView(ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
