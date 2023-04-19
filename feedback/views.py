@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from shop.models import Shop
 from rest_framework.viewsets import ModelViewSet
 from .serializers import CommentSerializer, RatingSerializer, ReviewSerializer
-from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from shop.serializers import ShopSerializer
 
@@ -31,6 +31,16 @@ class AddRating(CreateAPIView): # Post запрос на добавление р
         rating_obj.save()
         return Response(serializer.data)
 
-class ReviewListCreateAPIView(ListCreateAPIView):
+class ReviewCreateAPIView(CreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated,]
+
+    def perform_create(self, serializer):
+        serializer.save(owner = self.request.user)
+        serializer.save(phone_number = self.request.user.phone_number)
+        return serializer
+
+class ReviewListAPIView(ListAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer

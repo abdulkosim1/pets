@@ -32,8 +32,8 @@ class Rating(models.Model):
     
 
 class Review(models.Model):
-    name = models.CharField(max_length=30)
-    contact = models.CharField(max_length=30)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    phone_number = models.CharField(max_length=30)
     theme = models.CharField(max_length=30)
     message = models.TextField()
 
