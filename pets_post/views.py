@@ -4,7 +4,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Pets, Category
-from .serializers import PetsSerializer, CategorySerializer
+from .serializers import PetsSerializer, CategorySerializer, CategoryAllSerializer
 from django.contrib.auth import get_user_model
 from .permissions import IsOwner
 from rest_framework.decorators import api_view
@@ -29,7 +29,7 @@ class PetsListAPIView(generics.ListAPIView): # Просмотр pets
 
 class CategoryListAPIView(generics.ListAPIView): # Просмотр category 
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = CategoryAllSerializer
     permission_classes = []
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
@@ -76,7 +76,7 @@ class GetFreePetsListAPIView(generics.ListAPIView): # Просмотр pets
 def get_pet_category(request, pk):
     try:
         category = Category.objects.get(pk=pk)
-        pets_in_category = category.pets_categories.all()
+        pets_in_category = category.pets.all()
     except Category.DoesNotExist:
         return Response('Category does not exist')
     serializer = CategorySerializer(pets_in_category, many=True)

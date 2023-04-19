@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from .models import Pets, Category
+from feedback.serializers import CommentSerializer
 
 class PetsSerializer(serializers.ModelSerializer):
     owner = serializers.EmailField(required=False)
+    comments = CommentSerializer(many=True, read_only=True)
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['image'] = 'http://34.89.184.22' + instance.image.url
@@ -19,4 +21,10 @@ class CategorySerializer(serializers.ModelSerializer):
         return representation
     class Meta:
         model = Pets
+        fields = '__all__'
+
+class CategoryAllSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
         fields = '__all__'

@@ -20,6 +20,11 @@ class Shop(models.Model):
     def __str__(self) -> str:
         return self.title
     
+
+# class Service(models.Model):
+#     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='service')
+
+    
 @receiver(post_save, sender=Shop)
 def shop_create(sender, instance, created, **kwargs):
     if created:
