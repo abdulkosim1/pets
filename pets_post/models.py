@@ -21,7 +21,7 @@ class Pets(models.Model):
     age = models.CharField(blank=True, null=True, default='', max_length=20)
     address = models.CharField(max_length=50, default='')
     contact = models.CharField(max_length=40, default='')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='pets_categories')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='pets')
     breed = models.CharField(max_length=20, blank=True, null=True, default='')
     image = models.ImageField(upload_to='pets_image')
     # created_at = models.DateTimeField(verbose_name='Дата создания ', auto_now_add=True)
