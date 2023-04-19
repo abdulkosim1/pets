@@ -32,9 +32,9 @@ class Rating(models.Model):
     
 
 class Review(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
-    phone_number = models.CharField(max_length=30)
-    theme = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, default='')
+    contact = models.CharField(max_length=30, default='')
+    theme = models.CharField(max_length=30, default='')
     message = models.TextField()
 
     def __str__(self) -> str:

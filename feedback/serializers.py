@@ -25,7 +25,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
-    phone_number = serializers.ReadOnlyField(source='owner.phone_number')
 
     class Meta:
         model = Review
