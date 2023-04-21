@@ -21,7 +21,7 @@ class PetsListAPIView(generics.ListAPIView): # Просмотр pets
     queryset = Pets.objects.all()
     serializer_class = PetsSerializer
     permission_classes = []
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['owner', 'title', 'category']
     search_fields = ['title', ]
@@ -33,7 +33,7 @@ class CategoryListAPIView(generics.ListAPIView): # Просмотр category
     permission_classes = []
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filter_fields = ['title',]
+    filter_fields = ['category',]
     search_fields = ['title', ]
 
 class PetsCreateAPIView(generics.CreateAPIView): # Добавление pets

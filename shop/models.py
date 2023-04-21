@@ -16,9 +16,18 @@ class Shop(models.Model):
     image = models.ImageField(upload_to='shop_images')
 
     is_confirmed = models.BooleanField(default=False)
+    shop_code =  models.CharField(max_length=50, blank=True)
+
 
     def __str__(self) -> str:
         return self.title
+    
+    def create_shop_code(self):
+        import uuid
+        code = str(uuid.uuid4())
+        self.shop_code = code
+
+
     
 
 # class Service(models.Model):
