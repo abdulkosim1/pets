@@ -31,7 +31,7 @@ class CategoryListAPIView(generics.ListAPIView): # Просмотр category
     queryset = Category.objects.all()
     serializer_class = CategoryAllSerializer
     permission_classes = []
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filter_fields = ['category',]
     search_fields = ['title', ]
