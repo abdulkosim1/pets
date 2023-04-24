@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 from pets_post.views import CustomPagination
-from .models import Shop
-from .serializers import ShopSerializer
+from .models import Shop, Service
+from .serializers import ShopSerializer, ServiceSerializer
 from rest_framework.response import Response
 
 
@@ -23,3 +24,11 @@ def get_shop(request, id):
     serializer = ShopSerializer(pet, many=False)
     return Response(serializer.data)
 
+
+class ServiceModelViewSet(ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(shop=self.request.shop)
+        return serializer
