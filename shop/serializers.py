@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Shop, Service
+from .models import Shop, Service, Category
 from django.db.models import Avg
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shop
+        fields = '__all__'
 
 
 class ShopSerializer(serializers.ModelSerializer):

@@ -15,7 +15,6 @@ class Category(models.Model):
 class Shop(models.Model):
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_shop')
-    # category1 = models.CharField(max_length=30)
     description = models.TextField()
     address = models.CharField(max_length=100)
     contact = models.CharField(max_length=50)

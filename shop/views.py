@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from pets_post.views import CustomPagination
-from .models import Shop, Service
-from .serializers import ShopSerializer, ServiceSerializer
+from .models import Shop, Service, Category
+from .serializers import ShopSerializer, ServiceSerializer, CategorySerializer
 from rest_framework.response import Response
 
 
@@ -32,3 +32,14 @@ class ServiceModelViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(shop=self.request.shop)
         return serializer
+
+
+@api_view(['GET'])
+def get_shop_category(request, pk):
+    try:
+        category = Category.objects.get(pk=pk)
+        shops_in_category = category.category_shop.all()
+    except Category.DoesNotExist:
+        return Response('Category does not exist')
+    serializer = ShopSerializer(shops_in_category, many=True)
+    return Response(serializer.data)
