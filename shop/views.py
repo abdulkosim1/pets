@@ -6,14 +6,16 @@ from .models import Shop, Service, Category
 from .serializers import ShopSerializer, ServiceSerializer, CategorySerializer
 from rest_framework.response import Response
 
-
-# Create your views here.
-
 class ShopListCreateAPIView(generics.ListCreateAPIView): # Просмотр shops 
     queryset = Shop.objects.filter(is_confirmed=True)
     serializer_class = ShopSerializer
     permission_classes = []
     pagination_class = CustomPagination
+
+class ServiceModelViewSet(ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+
 
 @api_view(['GET'])
 def get_shop(request, id):
@@ -24,21 +26,11 @@ def get_shop(request, id):
     serializer = ShopSerializer(pet, many=False)
     return Response(serializer.data)
 
-
-class ServiceModelViewSet(ModelViewSet):
-    queryset = Service.objects.all()
-    serializer_class = ServiceSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(shop=self.request.shop)
-        return serializer
-
-
 @api_view(['GET'])
 def get_shop_category(request, pk):
     try:
         category = Category.objects.get(pk=pk)
-        shops_in_category = category.category_shop.all()
+        shops_in_category = category.category_shop.filter(is_confirmed=True)
     except Category.DoesNotExist:
         return Response('Category does not exist')
     serializer = ShopSerializer(shops_in_category, many=True)
