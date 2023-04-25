@@ -20,6 +20,7 @@ class Shop(models.Model):
     contact = models.CharField(max_length=50)
     social_net = models.CharField(max_length=50)
     image = models.ImageField(upload_to='shop_images')
+    google_link = models.CharField(max_length=150, default='', null=True, blank=True)
 
     is_confirmed = models.BooleanField(default=False)
     shop_code = models.CharField(max_length=50, blank=True)
