@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Rating, Comment, Review
+from main.settings import URL_SITE
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -14,7 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation =  super().to_representation(instance)
-        representation['profile_image'] = 'http://34.89.184.22' + instance.owner.profile_image.url
+        representation['profile_image'] = URL_SITE + instance.owner.profile_image.url
         return representation
 
 

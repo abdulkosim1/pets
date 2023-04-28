@@ -7,6 +7,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+URL_SITE = 'petshackaton.ru'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -17,7 +18,7 @@ SECRET_KEY = 'django-insecure-!0f8leje5vu7-dyer9byjnct_pq^kpgao8_l1304sq9ky+gex*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.89.184.22', '127.0.0.1','www.petshackaton.ru',]
+ALLOWED_HOSTS = ['34.89.184.22', '127.0.0.1','www.petshackaton.ru', 'petshackaton.ru',]
 # ALLOWED_HOSTS = ['34.89.184.22']
 
 
