@@ -173,7 +173,7 @@ CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 CORS_ALLOWED_ORIGINS = [
-    'https://enactus-hack-d88bl452s-superxero1996-gmailcom.vercel.app/',
+    'https://enactus-hack.vercel.app/',
     'http://localhost:3000',
 
 ]
