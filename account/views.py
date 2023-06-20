@@ -26,7 +26,7 @@ class ActivationView(APIView):
             return Response('Активация аккаунта прошла успешно.', status=200)
         except User.DoesNotExist:
             return Response('Ссылка уже была использована.', status=400)
-        
+
 class EditProfileAPIView(generics.RetrieveUpdateAPIView): # Put & Patch на изменение данных профиля
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
